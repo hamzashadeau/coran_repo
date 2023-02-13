@@ -15,16 +15,15 @@ if st.button('احصل على برنامجك اليومي'):
              "51/52", "53/54", "55/56", "57/58", "59/60"]
     mon_dictionnaire = np.load('coran_df.npy', allow_pickle='TRUE').item()
     mon_new_dictionnaire = {"تاريخ": datetime.now().date()}
-    if datetime.now().date()!=mon_dictionnaire['تاريخ']:
-        for i in Names:
-            index = ahzab.index(mon_dictionnaire[i])
-            if index == 28:
-                index = 0
-            else:
-                index = ahzab.index(mon_dictionnaire[i]) + 1
-            mon_new_dictionnaire[i] = ahzab[index]
+    for i in Names:
+        index = ahzab.index(mon_dictionnaire[i])
+        if index == 28:
+            index = 0
+        else:
+            index = ahzab.index(mon_dictionnaire[i]) + 1
+        mon_new_dictionnaire[i] = ahzab[index]
 
-        mon_dictionnaire = mon_new_dictionnaire
+    mon_dictionnaire = mon_new_dictionnaire
     np.save('coran_df.npy', mon_dictionnaire)
     mon_dictionnaire.pop("تاريخ",None)
     st.write(mon_dictionnaire)
